@@ -5,6 +5,7 @@
 ![alt text](image-1.png)
 
 <b>Program Structure Explanation</b>
+
 <b>1. Frontend (App.tsx)</b>
 <b>Purpose</b>: Provides a user interface for submitting transaction details for fraud detection.
 
