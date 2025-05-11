@@ -1,7 +1,8 @@
 # fraud-detection-infra
 
 <b> High level Architecture Diagram </b>
-![alt text](image.png)
+
+![alt text](image-1.png)
 
 <b>Program Structure Explanation</b>
 <b>1. Frontend (App.tsx)</b>
