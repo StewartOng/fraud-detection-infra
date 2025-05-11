@@ -6,9 +6,9 @@
 
 <b>Program Structure Explanation</b>
 <b>1. Frontend (App.tsx)</b>
-Purpose: Provides a user interface for submitting transaction details for fraud detection.
+<b>Purpose</b>: Provides a user interface for submitting transaction details for fraud detection.
 
-Key Features:
+<b>Key Features</b>:
 
 Form with inputs for Transaction ID, Customer ID, Amount, and IP Address
 
@@ -16,13 +16,13 @@ Submit button that sends data to the backend API
 
 Displays the fraud detection result
 
-Technologies: React, TypeScript, Axios for API calls
+<b>Technologies</b>: React, TypeScript, Axios for API calls
 
 <b> 2. Lambda Functions </b>
-handler.py
-Purpose: Handles fraud detection requests for registration events.
+<b> handler.py</b>
+<b>Purpose</b>: Handles fraud detection requests for registration events.
 
-Key Features:
+<b>Key Features</b>:
 
 Receives email and IP address as input
 
@@ -32,12 +32,12 @@ Logs results to DynamoDB
 
 Sends SNS alerts for fraudulent events
 
-AWS Services Used: Fraud Detector, DynamoDB, SNS
+<b>AWS Services Used</b>: Fraud Detector, DynamoDB, SNS
 
-main.py
-Purpose: Handles fraud detection for financial transactions.
+<b>main.py</b>
+<b>Purpose</b>: Handles fraud detection for financial transactions.
 
-Key Features:
+<b>Key Features</b>:
 
 Receives transaction details (ID, customer, amount, IP)
 
@@ -47,13 +47,13 @@ Stores results in DynamoDB
 
 Triggers SNS alerts for fraud cases
 
-AWS Services Used: Fraud Detector, DynamoDB, SNS
+<b>AWS Services Used</b>: Fraud Detector, DynamoDB, SNS
 
 <b>3. Infrastructure (Terraform)</b>
-main.tf
-Purpose: Defines and provisions the AWS infrastructure.
+<b>main.tf</b>
+<b>Purpose</b>: Defines and provisions the AWS infrastructure.
 
-Key Components:
+<b>Key Components</b>:
 
 SNS Topic for fraud alerts with email subscription
 
@@ -63,9 +63,9 @@ IAM role with permissions for Lambda
 
 Lambda function configuration
 
-AWS Services Provisioned: SNS, DynamoDB, IAM, Lambda
+<b>AWS Services Provisioned</b>: SNS, DynamoDB, IAM, Lambda
 
-variables.tf
+<b>variables.tf</b>
 Purpose: Defines configurable variables for the Terraform deployment.
 
 Key Variables:
@@ -78,14 +78,14 @@ DynamoDB table name
 
 Fraud Detector name
 
-outputs.tf
-Purpose: Outputs important resource information after deployment.
+<b>outputs.tf</b>
+<b>Purpose</b>: Outputs important resource information after deployment.
 
-Outputs: SNS Topic ARN
+<b>Outputs</b>: SNS Topic ARN
 
 <b>4. Deployment Scripts</b>
-deploy.sh
-Purpose: Automates the deployment process.
+<b>deploy.sh</b>
+<b> Purpose</b>: Automates the deployment process.
 
 Steps:
 
@@ -93,10 +93,10 @@ Zips Lambda function code
 
 Runs Terraform to provision infrastructure
 
-setup-frauddetector.sh
-Purpose: Configures Amazon Fraud Detector components.
+<b>setup-frauddetector.sh</b>
+<b>Purpose</b>: Configures Amazon Fraud Detector components.
 
-Key Configurations:
+<b>Key Configurations</b>:
 
 Creates entity type (customer)
 
