@@ -1,10 +1,10 @@
 # fraud-detection-infra
 
-High level Architecture Diagram
+<b> High level Architecture Diagram </b>
 ![alt text](image.png)
 
-Program Structure Explanation
-1. Frontend (App.tsx)
+<b>Program Structure Explanation</b>
+<b>1. Frontend (App.tsx)</b>
 Purpose: Provides a user interface for submitting transaction details for fraud detection.
 
 Key Features:
@@ -17,7 +17,7 @@ Displays the fraud detection result
 
 Technologies: React, TypeScript, Axios for API calls
 
-2. Lambda Functions
+<b> 2. Lambda Functions </b>
 handler.py
 Purpose: Handles fraud detection requests for registration events.
 
@@ -48,7 +48,7 @@ Triggers SNS alerts for fraud cases
 
 AWS Services Used: Fraud Detector, DynamoDB, SNS
 
-3. Infrastructure (Terraform)
+<b>3. Infrastructure (Terraform)</b>
 main.tf
 Purpose: Defines and provisions the AWS infrastructure.
 
@@ -82,7 +82,7 @@ Purpose: Outputs important resource information after deployment.
 
 Outputs: SNS Topic ARN
 
-4. Deployment Scripts
+<b>4. Deployment Scripts</b>
 deploy.sh
 Purpose: Automates the deployment process.
 
@@ -107,7 +107,7 @@ Sets up detector with rules (e.g., "amount > 5000")
 
 Activates detector version
 
-5. Fraud Detector Configuration
+<b>5. Fraud Detector Configuration</b>
 Entity Type: "customer"
 
 Event Type: "transaction_event"
@@ -126,7 +126,7 @@ Rule: Flags transactions over $5000 as potential fraud
 
 Outcomes: "fraud" or "legit"
 
-Workflow
+<b>Workflow</b>
 User submits transaction details through React frontend
 
 API Gateway receives the request and triggers Lambda function
@@ -143,17 +143,17 @@ Sends alert via SNS if fraud is detected
 
 Result is returned to the frontend for display
 
-Key AWS Services Integration
-Amazon Fraud Detector: Core fraud detection service
+<b>Key AWS Services Integration</b>
+<b>Amazon Fraud Detector</b>: Core fraud detection service
 
-Lambda: Serverless compute for business logic
+<b>Lambda</b>: Serverless compute for business logic
 
-API Gateway: Frontend-to-backend interface
+<b>API Gateway</b>: Frontend-to-backend interface
 
-DynamoDB: Transaction history storage
+<b>DynamoDB</b>: Transaction history storage
 
-SNS: Fraud alert notifications
+<b>SNS</b>: Fraud alert notifications
 
-IAM: Security and permissions management
+<b>IAM</b>: Security and permissions management
 
 This architecture provides a scalable, serverless solution for real-time fraud detection with alerting and audit capabilities.
