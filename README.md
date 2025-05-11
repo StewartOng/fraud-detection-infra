@@ -21,7 +21,8 @@ Displays the fraud detection result
 <b>Technologies</b>: React, TypeScript, Axios for API calls
 
 <b> 2. Lambda Functions </b>
-<b> handler.py</b>
+
+<b> 2.1 handler.py</b>
 
 <b>Purpose</b>: Handles fraud detection requests for registration events.
 
@@ -37,7 +38,7 @@ Sends SNS alerts for fraudulent events
 
 <b>AWS Services Used</b>: Fraud Detector, DynamoDB, SNS
 
-<b>main.py</b>
+<b>2.2 main.py</b>
 
 <b>Purpose</b>: Handles fraud detection for financial transactions.
 
@@ -54,7 +55,8 @@ Triggers SNS alerts for fraud cases
 <b>AWS Services Used</b>: Fraud Detector, DynamoDB, SNS
 
 <b>3. Infrastructure (Terraform)</b>
-<b>main.tf</b>
+
+<b>3.1 main.tf</b>
 
 <b>Purpose</b>: Defines and provisions the AWS infrastructure.
 
@@ -70,7 +72,7 @@ Lambda function configuration
 
 <b>AWS Services Provisioned</b>: SNS, DynamoDB, IAM, Lambda
 
-<b>variables.tf</b>
+<b>3.2 variables.tf</b>
 
 Purpose: Defines configurable variables for the Terraform deployment.
 
@@ -84,7 +86,7 @@ DynamoDB table name
 
 Fraud Detector name
 
-<b>outputs.tf</b>
+<b>3.3 outputs.tf</b>
 
 <b>Purpose</b>: Outputs important resource information after deployment.
 
@@ -92,7 +94,8 @@ Fraud Detector name
 
 <b>4. Deployment Scripts</b>
 
-<b>deploy.sh</b>
+<b>4.1 deploy.sh</b>
+
 
 <b> Purpose</b>: Automates the deployment process.
 
@@ -102,7 +105,8 @@ Zips Lambda function code
 
 Runs Terraform to provision infrastructure
 
-<b>setup-frauddetector.sh</b>
+<b>4.2 setup-frauddetector.sh</b>
+
 
 <b>Purpose</b>: Configures Amazon Fraud Detector components.
 
@@ -119,6 +123,7 @@ Sets up detector with rules (e.g., "amount > 5000")
 Activates detector version
 
 <b>5. Fraud Detector Configuration</b>
+
 
 Entity Type: "customer"
 
