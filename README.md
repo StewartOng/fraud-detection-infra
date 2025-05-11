@@ -7,6 +7,7 @@
 <b>Program Structure Explanation</b>
 
 <b>1. Frontend (App.tsx)</b>
+
 <b>Purpose</b>: Provides a user interface for submitting transaction details for fraud detection.
 
 <b>Key Features</b>:
@@ -21,6 +22,7 @@ Displays the fraud detection result
 
 <b> 2. Lambda Functions </b>
 <b> handler.py</b>
+
 <b>Purpose</b>: Handles fraud detection requests for registration events.
 
 <b>Key Features</b>:
@@ -36,6 +38,7 @@ Sends SNS alerts for fraudulent events
 <b>AWS Services Used</b>: Fraud Detector, DynamoDB, SNS
 
 <b>main.py</b>
+
 <b>Purpose</b>: Handles fraud detection for financial transactions.
 
 <b>Key Features</b>:
@@ -52,6 +55,7 @@ Triggers SNS alerts for fraud cases
 
 <b>3. Infrastructure (Terraform)</b>
 <b>main.tf</b>
+
 <b>Purpose</b>: Defines and provisions the AWS infrastructure.
 
 <b>Key Components</b>:
@@ -67,6 +71,7 @@ Lambda function configuration
 <b>AWS Services Provisioned</b>: SNS, DynamoDB, IAM, Lambda
 
 <b>variables.tf</b>
+
 Purpose: Defines configurable variables for the Terraform deployment.
 
 Key Variables:
@@ -80,12 +85,15 @@ DynamoDB table name
 Fraud Detector name
 
 <b>outputs.tf</b>
+
 <b>Purpose</b>: Outputs important resource information after deployment.
 
 <b>Outputs</b>: SNS Topic ARN
 
 <b>4. Deployment Scripts</b>
+
 <b>deploy.sh</b>
+
 <b> Purpose</b>: Automates the deployment process.
 
 Steps:
@@ -95,6 +103,7 @@ Zips Lambda function code
 Runs Terraform to provision infrastructure
 
 <b>setup-frauddetector.sh</b>
+
 <b>Purpose</b>: Configures Amazon Fraud Detector components.
 
 <b>Key Configurations</b>:
@@ -110,6 +119,7 @@ Sets up detector with rules (e.g., "amount > 5000")
 Activates detector version
 
 <b>5. Fraud Detector Configuration</b>
+
 Entity Type: "customer"
 
 Event Type: "transaction_event"
@@ -129,6 +139,7 @@ Rule: Flags transactions over $5000 as potential fraud
 Outcomes: "fraud" or "legit"
 
 <b>Workflow</b>
+
 User submits transaction details through React frontend
 
 API Gateway receives the request and triggers Lambda function
@@ -146,6 +157,7 @@ Sends alert via SNS if fraud is detected
 Result is returned to the frontend for display
 
 <b>Key AWS Services Integration</b>
+
 <b>Amazon Fraud Detector</b>: Core fraud detection service
 
 <b>Lambda</b>: Serverless compute for business logic
