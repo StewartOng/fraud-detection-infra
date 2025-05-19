@@ -1,30 +1,13 @@
-
-import boto3
-import uuid
-import json
+import boto3, uuid, json
 from datetime import datetime
 
-# Create the Fraud Detector client
-client = boto3.client('frauddetector', region_name='us-east-1')  # use the correct region
-
-# Replace these with the exact values used in my AWS Console setup
-# Construct a test prediction event
-# Make Sure in the AWS Console You Have for example
-# Detector created: stewart-detector
-# Event type created: transaction_event
-# Entity type: customer
-# Variables:
-# transaction_amount (number or string type)
-# email_address (string)
-# ip_address (string)
-# Model trained and version active
-# At least one rule using the created model to return an outcome (fraud, legit, etc.)
+client = boto3.client('frauddetector', region_name='us-east-2')  # Match your detector's region
 
 response = client.get_event_prediction(
-    detectorId="detector_getting_started",
+    detectorId="group3_fraud_detector",  # Make sure this ID exists and is active
     eventId=str(uuid.uuid4()),
     eventTypeName="registration",
-    eventTimestamp="2024-05-04T10:00:00Z",
+    eventTimestamp=datetime.utcnow().isoformat() + "Z",  # ← Proper ISO timestamp
     entities=[{"entityType": "customer", "entityId": str(uuid.uuid4())}],
     eventVariables={
         "email_address": "fake_acostsusan@example.org",
@@ -32,6 +15,4 @@ response = client.get_event_prediction(
     }
 )
 
-# Output the predicted outcome
-
-print('Predicted outcome:', json.dumps(response['ruleResults'][0]['outcomes']))
+print('The predicted outcome is: ' + json.dumps(response['ruleResults'][0]['outcomes']))

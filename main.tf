@@ -55,10 +55,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policies" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "fraud_detector_permissions" {
-  role       = aws_iam_role.lambda_exec.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonFraudDetectorFullAccess"
-}
+
 
 # Lambda Function
 resource "aws_lambda_function" "fraud_checker" {
@@ -78,4 +75,25 @@ resource "aws_lambda_function" "fraud_checker" {
   }
 }
 
+resource "aws_iam_policy" "fraud_detector_policy" {
+  name        = "CustomFraudDetectorPolicy"
+  description = "Custom policy for Amazon Fraud Detector access"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "frauddetector:GetEventPrediction",
+   
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
 
+resource "aws_iam_role_policy_attachment" "attach_fraud_policy" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = aws_iam_policy.fraud_detector_policy.arn
+}
