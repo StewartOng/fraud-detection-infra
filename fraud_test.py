@@ -1,7 +1,7 @@
 import boto3, uuid, json
 from datetime import datetime
 
-client = boto3.client('frauddetector', region_name='us-east-2')  # Match your detector's region
+client = boto3.client('frauddetector', region_name='us-east-1')  # Match your detector's region
 
 response = client.get_event_prediction(
     detectorId="group3_fraud_detector",  # Make sure this ID exists and is active

@@ -1,0 +1,8 @@
+{
+  "transaction": {
+    "transactionId": "test123",
+    "customerId": "user1",
+    "amount": 10000,
+    "ipAddress": "1.2.3.4"
+  }
+}
