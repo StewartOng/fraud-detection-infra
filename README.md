@@ -93,37 +93,9 @@ Fraud Detector name
 
 <b>Outputs</b>: SNS Topic ARN
 
-<b>4. Deployment Scripts</b>
-
-<b>4.1 deploy.sh</b>
 
 
-<b> Purpose</b>: Automates the deployment process.
-
-Steps:
-
-Zips Lambda function code
-
-Runs Terraform to provision infrastructure
-
-<b>4.2 setup-frauddetector.sh</b>
-
-
-<b>Purpose</b>: Configures Amazon Fraud Detector components.
-
-<b>Key Configurations</b>:
-
-Creates entity type (customer)
-
-Defines variables (transactionId, customerId, amount, ipAddress)
-
-Creates event type and outcomes (fraud/legit)
-
-Sets up detector with rules (e.g., "amount > 5000")
-
-Activates detector version
-
-<b>5. Fraud Detector Configuration</b>
+<b>4. Fraud Detector Configuration</b>
 
 
 Entity Type: "customer"
@@ -135,8 +107,6 @@ Variables:
 transactionId (STRING)
 
 customerId (STRING)
-
-amount (FLOAT)
 
 ipAddress (STRING)
 

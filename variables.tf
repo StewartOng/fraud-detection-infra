@@ -1,19 +1,17 @@
-
-
 variable "region" {
   default = "us-east-1"
 }
 
 variable "alert_email" {
-  description = "The email address for fraud alerts"
+  description = "Email to receive fraud alerts"
+  type        = string
 }
 
 variable "dynamodb_table" {
-  default = "transactions"
+  default = "fraud-transactions"
 }
 
 variable "detector_name" {
-  description = "Name of the existing Fraud Detector created via Console"
+  description = "Name of your Fraud Detector"
   type        = string
-  default     = "detector_getting_started"
 }
