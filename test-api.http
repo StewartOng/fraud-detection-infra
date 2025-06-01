@@ -1,0 +1,8 @@
+POST https://dw73nm04hk.execute-api.us-east-1.amazonaws.com/Prod/predict
+Content-Type: application/json
+
+{
+  "eventId": "signup-new-0018",
+  "ip_address": "1.2.3.4",
+  "email_address": "fake_madisonshaffer@example.com"
+}

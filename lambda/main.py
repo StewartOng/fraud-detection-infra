@@ -2,7 +2,7 @@ import boto3
 import os
 import json
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 frauddetector = boto3.client('frauddetector')
 dynamodb = boto3.resource('dynamodb')
@@ -14,26 +14,33 @@ SNS_TOPIC_ARN = os.environ['SNS_TOPIC_ARN']
 
 def lambda_handler(event, context):
     try:
-        print("Received event:", event)
+        print("Received event (ignored in test mode):", event)
 
-        ip = event.get('ipAddress')
-        email = event.get('email')
-        amount = event.get('amount', '100')
-        user_id = event.get('userId', 'guest')
+        # ✅ HARDCODED TEST INPUTS
+        ip_address = "36.19.221.248"
+        email_address = "fake_madisonshaffer@example.com"
+        user_id = "test-user"
 
         transaction_id = str(uuid.uuid4())
-        timestamp = datetime.utcnow().isoformat()
+        timestamp = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+        #timestamp = datetime.utcnow().replace(tzinfo=timezone.utc).isoformat(timespec='seconds')
+
+        print("Calling Fraud Detector with:")
+        print(f"  IP Address: {ip_address}")
+        print(f"  Email Address: {email_address}")
+        print(f"  User ID: {user_id}")
+        print(f"  Detector ID: {DETECTOR_ID}")
+        print(f"  Timestamp: {timestamp}")
 
         prediction = frauddetector.get_event_prediction(
             detectorId=DETECTOR_ID,
             eventId=transaction_id,
-            eventTypeName='transaction_event',
+            eventTypeName='new_registration',
             eventTimestamp=timestamp,
             entities=[{'entityType': 'customer', 'entityId': user_id}],
             eventVariables={
-                'ip_address': ip,
-                'email_address': email,
-                'transaction_amount': str(amount)
+                'ip_address': ip_address,
+                'email_address': email_address,
             }
         )
 
@@ -45,19 +52,27 @@ def lambda_handler(event, context):
         table.put_item(Item={
             'transactionId': transaction_id,
             'userId': user_id,
-            'email': email,
-            'ip': ip,
-            'amount': amount,
+            'email': email_address,
+            'ip': ip_address,
             'outcome': outcome,
             'timestamp': timestamp
         })
 
-        # Send alert if fraudulent
-        if outcome.lower() == 'fraud':
+        # Send alert if outcome is suspicious
+        suspicious_outcomes = ['fraud', 'high_risk_customer']
+        if outcome.lower() in suspicious_outcomes:
+            print("Sending fraud alert via SNS...")
             sns.publish(
                 TopicArn=SNS_TOPIC_ARN,
-                Subject="⚠️ Fraud Alert",
-                Message=f"Fraud detected!\nTransaction ID: {transaction_id}\nEmail: {email}\nIP: {ip}"
+                Subject="⚠️ Fraud Alert: New Account Registration ",
+                Message=(
+                    f"Fraud detected!\n\n"
+                    f"Transaction ID: {transaction_id}\n"
+                    f"Outcome: {outcome}\n"
+                    f"Email Address: {email_address}\n"
+                    f"IP Address: {ip_address}\n"
+                    f"Timestamp: {timestamp}"
+                )
             )
 
         return {
