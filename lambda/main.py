@@ -2,7 +2,7 @@ import boto3
 import os
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 
 frauddetector = boto3.client('frauddetector')
 dynamodb = boto3.resource('dynamodb')
@@ -17,13 +17,12 @@ def lambda_handler(event, context):
         print("Received event (ignored in test mode):", event)
 
         # ✅ HARDCODED TEST INPUTS
-        ip_address = "36.19.221.248"
-        email_address = "fake_madisonshaffer@example.com"
+        ip_address = "46.41.252.160"
+        email_address = "fake_acostasusan@example.org"
         user_id = "test-user"
 
         transaction_id = str(uuid.uuid4())
         timestamp = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
-        #timestamp = datetime.utcnow().replace(tzinfo=timezone.utc).isoformat(timespec='seconds')
 
         print("Calling Fraud Detector with:")
         print(f"  IP Address: {ip_address}")
@@ -44,27 +43,38 @@ def lambda_handler(event, context):
             }
         )
 
-        outcome = prediction['ruleResults'][0]['outcomes'][0]
+        print("Full prediction response:", json.dumps(prediction, indent=2))
+
+        rule_results = prediction.get('ruleResults', [])
+        if not rule_results or not rule_results[0].get('outcomes'):
+            outcome = "unknown"
+            print("No outcome found in prediction, defaulting to 'unknown'")
+        else:
+            outcome = rule_results[0]['outcomes'][0]
+        
         print("Fraud outcome:", outcome)
 
-        # Store in DynamoDB
+        # ✅ Store in DynamoDB
         table = dynamodb.Table(DDB_TABLE)
-        table.put_item(Item={
+        item = {
             'transactionId': transaction_id,
             'userId': user_id,
             'email': email_address,
             'ip': ip_address,
             'outcome': outcome,
             'timestamp': timestamp
-        })
+        }
 
-        # Send alert if outcome is suspicious
+        response = table.put_item(Item=item)
+        print("DynamoDB put_item response:", response)
+
+        # ✅ Send alert if outcome is suspicious
         suspicious_outcomes = ['fraud', 'high_risk_customer']
         if outcome.lower() in suspicious_outcomes:
             print("Sending fraud alert via SNS...")
             sns.publish(
                 TopicArn=SNS_TOPIC_ARN,
-                Subject="⚠️ Fraud Alert: New Account Registration ",
+                Subject="⚠️ Fraud Alert: New Account Registration",
                 Message=(
                     f"Fraud detected!\n\n"
                     f"Transaction ID: {transaction_id}\n"
