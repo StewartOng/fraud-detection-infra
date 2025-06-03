@@ -149,15 +149,18 @@ Result is returned to the frontend for display
 This architecture provides a scalable, serverless solution for real-time fraud detection with alerting and audit capabilities.
 
 <b>Test Method and Results</b>
-Step 1: modified lambda/main.py with hardcoded test values and then create fraud_predictor.zip
-Screenshot in AWS console for our input is shown in blue below.
-![alt text](image-4.png)
-Step 2 upload to the AWS Lambda Console:
+Step 1: write lambda/main.py  
+Screenshot in AWS console for our input  
+![alt text](image-19.png)
+
+Step 2 upload zip to the AWS Lambda Console:
 1.	Navigate to AWS Lambda Console: https://console.aws.amazon.com/lambda/home
 2.	Find our Lambda function: it’s called fraud-checker based on our Terraform (function_name = "fraud-checker").
 3.	Click on "Code" tab.
 4.	Click "Upload from" → ".zip file" and upload fraud_predictor.zip.
 5.	Click "Deploy" to apply the change.
+![alt text](image-15.png)
+
 
 Step 3 Test the Lambda Function (Manually)
 In the same Lambda Console:
@@ -165,9 +168,15 @@ In the same Lambda Console:
 2.	Click “Configure test event” (or "Create new test").
 3.	Choose any name like TestEvent1.
 4.	Use this as the test payload:
-{}
-(It will be ignored since our code uses hardcoded input.)
 5.	Click “Test” button.
+![alt text](image-20.png)
+
+![alt text](image-21.png)  
+
+![alt text](image-22.png)
+
+
+
 Step 4 Check the Result and Logs
 ✅ Test Result:
 After clicking “Test”, we’ll see a response panel with something like:
@@ -190,17 +199,22 @@ Screenshot of test result
 ![alt text](image-5.png)
 ![alt text](image-6.png)
 
-Step 5 Confirm It Worked
+Step 5 Confirm It Worked  
+
 •	✅ Fraud Detector: Ensure that our model is trained and active, with an event type named transaction_event and the 2 variables:
-o	ip_address
-o	email_address
-•	✅ DynamoDB: Go to DynamoDB Console, open our table (e.g., fraud-transactions), check if a record was added.
-•	✅ SNS: If the prediction was fraud, check our email inbox (that we set in var.alert_email) for the alert.
+      o	ip_address  
+      o	email_address  
+
+•	✅ DynamoDB: Go to DynamoDB Console, open our table (e.g., fraud-transactions), check if a record was added.  
+
+•	✅ SNS: If the prediction was fraud, check our email inbox (that we set in var.alert_email) for the alert.  
+
 
 Step 5.1 Confirm It Worked: Fraud Detector active
 ![alt text](image-7.png)
 ![alt text](image-8.png)
-Step 5.2 Confirm It Worked: dynomoDB
+Step 5.2 Confirm It Worked: dynomoDB  
+
 1)	Open our Table
 •	Find our table in the list (example name: fraud-transactions or whatever you defined as DDB_TABLE).
 •	Click the table name.
@@ -220,22 +234,28 @@ Step 5.3 Confirm It Worked: SNS
 In AWS, we seen our email status is confirmed
 ![alt text](image-13.png)
 ![alt text](image-14.png)
-![alt text](image-15.png)
+
 The value shown for SNS_TOPIC_ARN exactly matches the ARN of our SNS topic.
-Screenshot showing email received fraud_alert.
+
+Below screenshot showing email received fraud_alert.
 
 ![alt text](image-16.png)
+
+
 Step 5.4 Confirmed it work cloudwatch
 ![alt text](image-17.png)
 
 <b> Key takeaways </b>
 
 Here are the key takeaways from our fraud detection project using AWS services, Terraform, and Python:
- <b> Architecture & Components </b>
- •	Amazon Fraud Detector (AFD): Core engine for fraud prediction based on event variables (e.g., email, IP).
+
+ <b> Architecture & Components </b>  
+
+•	Amazon Fraud Detector (AFD): Core engine for fraud prediction based on event variables (e.g., email, IP).
 
 •	AWS Lambda: Orchestrates fraud prediction, stores results in DynamoDB, and triggers SNS alerts.
-•	DynamoDB: Stores transaction details and prediction outcomes.
+
+•	DynamoDB: Stores all transaction details and prediction outcomes.
 
 •	SNS (Simple Notification Service): Sends alerts (e.g., email) for suspicious outcomes.
 
@@ -246,31 +266,31 @@ Here are the key takeaways from our fraud detection project using AWS services, 
 
 1. Event Variable Setup Must Match AFD Expectations
 
-•	Variables like email_address and ip_address must match exactly (names and types) in both the Lambda code and the AFD event type configuration.
+   •	Variables like email_address and ip_address must match exactly (names and types) in both the Lambda code and the AFD event type configuration.
 
 2. Strict ISO 8601 Format for Timestamps
 
-•	Timestamps passed to AFD must be in this format:
+  •	Timestamps passed to AFD must be in this format:
 
-✅ '2025-06-01T08:47:13Z'
+      ✅ '2025-06-01T08:47:13Z'
 
-❌ '2025-06-01T08:47:13.715697+00:00'
+      ❌ '2025-06-01T08:47:13.715697+00:00'
 
 3. SNS Subject Field Constraints
 
-•	Must be ASCII-only, ≤100 characters, and contain no emojis. Violating this throws an InvalidParameter error.
+   Must be ASCII-only, ≤100 characters, and contain no emojis. Violating this throws an InvalidParameter error.
 
 4. IAM Permissions Are Crucial
 
-•	Lambda must have:
+   Lambda must have:
 
-o	sns:Publish permission for the SNS topic.
+	(1) sns:Publish permission for the SNS topic.
 
-o	dynamodb:PutItem for storing predictions.
+  (2) dynamodb:PutItem for storing predictions.
 
-o	frauddetector:GetEventPrediction to call AFD.
+  (3) frauddetector:GetEventPrediction to call AFD.
 
-•	Terraform IAM roles/policies must be carefully constructed and attached to Lambda.
+  (4)	Terraform IAM roles/policies must be carefully constructed and attached to Lambda.
 
 5. Lambda ZIP Deployment
 
@@ -288,8 +308,7 @@ ________________________________________
 •	SNS Email confirmation is mandatory before emails are delivered.
 
 ________________________________________
-🧩 Potential Enhancements
-•	Replace hardcoded test values with dynamic input via API Gateway or EventBridge.
+🧩 Potential Enhancements  
 
 •	Add a frontend UI to submit real transaction data.
 
@@ -308,24 +327,35 @@ https://ieeexplore.ieee.org/document/8038008
 [2] “A Survey of Credit Card Fraud Detection Techniques: Data and Technique Oriented Perspective”, SamanehSorournejad, Zahra Zojaji, Reza Ebrahimi Atani, Amir Hassan Monadjemi, 2016 
 https://www.researchgate.net/publication/310610856_A_Survey_of_Credit_Card_Fraud_Detection_Techniques_Data_and_Technique_Oriented_Perspective  
 
-[3] “Fraud Detection in Online Transactions Using Machine Learning”, Jashandeep Singh, Prabhjot Kaur, ResearchGate
-https://www.researchgate.net/publication/
-376518057_Fraud_Detection_in_Online_Transactions_Using_Machine_Learning  
+
+[3] “Fraud Detection in Online Transactions Using Machine Learning”, Jashandeep Singh, Prabhjot Kaur, ResearchGate.  
+
+https://www.researchgate.net/publication/376518057_Fraud_Detection_in_Online_Transactions_Using_Machine_Learning 
+
 
 [4] “Deploying Machine Learning Models for Fraud Detection at Scale” 
 https://www.uber.com/en-SG/blog/michelangelo-machine-learning-platform/  
 
 [5] “Deploying Large-scale Fraud Detection Machine Learning Models at PayPal”, Quinn Zuo, 2021. 
+
 https://medium.com/paypal-tech/machine-learning-model-ci-cd-and-shadow-platform-8c4f44998c78  
 
-[6] “Using AI/ML to build a Fraud Detection Model”, Pradeep Loganathan, 2024, https://pradeepl.com/blog/building-a-fraud-detection-model/  
+[6] “Using AI/ML to build a Fraud Detection Model”, Pradeep Loganathan, 2024  
 
-[7] “Machine Learning for Fraud Detection: Best Models and Techniques”, SQream, https://sqream.com/blog/machine-learning-for-fraud-detection/  
+https://pradeepl.com/blog/building-a-fraud-detection-model/  
 
-[8] AWS Fraud Detector Documentation
+[7] “Machine Learning for Fraud Detection: Best Models and Techniques”, SQream  
+
+https://sqream.com/blog/machine-learning-for-fraud-detection/  
+
+[8] AWS Fraud Detector Documentation  
+
 https://aws.amazon.com/fraud-detector/  
+
 https://docs.aws.amazon.com/frauddetector/  
+
 https://docs.aws.amazon.com/frauddetector/latest/ug/how-frauddetector-works.html  
+
 
 [9] AWS re:Invent 2020: Catch more potential online fraud faster with Amazon Fraud Detector, https://www.youtube.com/watch?v=5QSXbgbvleo  
 
