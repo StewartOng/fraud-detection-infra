@@ -95,7 +95,7 @@ Fraud Detector name
 
 
 
-<b>4. Fraud Detector Configuration</b>
+<b>4. Fraud Detector Configuration (manually configure in AWS console)</b>
 
 
 Entity Type: "customer"
@@ -110,9 +110,7 @@ customerId (STRING)
 
 ipAddress (STRING)
 
-Rule: Flags transactions over $5000 as potential fraud
-
-Outcomes: "fraud" or "legit"
+Outcomes: "fraud" or "legit" or high risk, low risk or medium risk customer for registration
 
 <b>Workflow</b>
 
@@ -191,9 +189,9 @@ Or
 }
 Logs:
 Scroll down in the same window to view Log output. We'll see:
-•	The hardcoded input values
+•	The input values
 •	Any errors if it failed
-•	The outcome (accept or fraud)
+•	The outcome (accept or fraud/high risk)
 
 Screenshot of test result
 ![alt text](image-5.png)
