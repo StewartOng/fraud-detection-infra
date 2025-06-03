@@ -146,9 +146,9 @@ Result is returned to the frontend for display
 
 This architecture provides a scalable, serverless solution for real-time fraud detection with alerting and audit capabilities.
 
-<b>Test Method and Results</b>
-Step 1: write lambda/main.py  
-Screenshot in AWS console for our input  
+<b>Test Method and Results</b><br>
+Step 1: write lambda/main.py  <br>
+Screenshot in AWS console for our input  <br>
 ![alt text](image-19.png)
 
 Step 2 upload zip to the AWS Lambda Console:
