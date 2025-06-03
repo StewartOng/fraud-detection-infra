@@ -7,13 +7,13 @@
 
 <b>Program Structure Explanation</b>
 
-<b>1. Frontend (App.tsx)</b>
+<b>1. Frontend (App.tsx) - optional </b>
 
 <b>Purpose</b>: Provides a user interface for submitting transaction details for fraud detection.
 
 <b>Key Features</b>:
 
-Form with inputs for Transaction ID, Customer ID, Amount, and IP Address
+Form with inputs for Transaction ID, Customer ID, Amount (Optional), and IP Address
 
 Submit button that sends data to the backend API
 
@@ -35,7 +35,7 @@ Calls Amazon Fraud Detector API for prediction
 
 Logs results to DynamoDB
 
-Sends SNS alerts for fraudulent events
+Sends SNS alerts for fraudulent events (including high risk)
 
 <b>AWS Services Used</b>: Fraud Detector, DynamoDB, SNS
 
@@ -281,11 +281,9 @@ o	frauddetector:GetEventPrediction to call AFD.
 ________________________________________
 💡 Operational Insights
 
-•	Logs are your friend: CloudWatch logs are vital to diagnose issues with Lambda execution or failed SNS calls.
+•	Logs are our friend: CloudWatch logs are vital to diagnose issues with Lambda execution or failed SNS calls.
 
-•	Testing in Console: Lambda's test feature is great for simulating input and viewing real-time results.
-
-•	Hardcoded inputs are fine for testing, but you should eventually connect to a frontend or event source.
+•	Testing in Console: Lambda's test feature is great for simulating input and viewing real-time results. We should eventually connect to a frontend or event source.
 
 •	SNS Email confirmation is mandatory before emails are delivered.
 
