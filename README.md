@@ -215,18 +215,29 @@ Step 5.1 Confirm It Worked: Fraud Detector active
 ![alt text](image-8.png)
 Step 5.2 Confirm It Worked: dynomoDB  
 
-1)	Open our Table
-•	Find our table in the list (example name: fraud-transactions or whatever you defined as DDB_TABLE).
-•	Click the table name.
-     2) View the Data (Items)
-•	In the left sidebar, click "Explore table items".
-•	We’ll see a list of all the records (items) in our table.
-3)_Verify the Record
-•	Look for a new item with the transactionId, userId, or email used in our test.
-•	Confirm the fields like ip, email, outcome, and timestamp are correctly stored.
+1)	Open our Table  
+
+•	Find our table in the list (example name: fraud-transactions or whatever you defined as DDB_TABLE).  
+
+•	Click the table name.  
+
+
+2) View the Data (Items)  
+
+•	In the left sidebar, click "Explore table items".  
+
+•	We’ll see a list of all the records (items) in our table.  
+
+3)_Verify the Record  
+
+•	Look for a new item with the transactionId, userId, or email used in our test.  
+
+•	Confirm the fields like ip, email, outcome, and timestamp are correctly stored.  
+
 ![alt text](image-9.png)
 ![alt text](image-10.png)
-![alt text](image-11.png)
+![alt text](image-11.png)  
+
 We also can download the dynamodb table in csv format as seen by the screenshot below
 ![alt text](image-25.png)
 
