@@ -175,23 +175,24 @@ In the same Lambda Console:
 
 
 
-Step 4 Check the Result and Logs
-✅ Test Result:
-After clicking “Test”, we’ll see a response panel with something like:
-{
-  "statusCode": 200,
-  "body": "{\"transactionId\": \"...\", \"outcome\": \"accept\"}"
-}
-Or
-{
-  "statusCode": 500,
-  "body": "{\"error\": \"some error...\"}"
-}
-Logs:
-Scroll down in the same window to view Log output. We'll see:
-•	The input values
-•	Any errors if it failed
-•	The outcome (accept or fraud/high risk)
+Step 4 Check the Result and Logs<br>
+✅ Test Result:<br>
+After clicking “Test”, we’ll see a response panel with something like:<br>
+{<br>
+  "statusCode": 200,<br>
+  "body": "{\"transactionId\": \"...\", \"outcome\": \"accept\"}"<br>
+}<br>
+Or<br>
+{<br>
+  "statusCode": 500,<br>
+  "body": "{\"error\": \"some error...\"}"<br>
+}<br>
+
+Logs:<br>
+Scroll down in the same window to view Log output. We'll see:<br>
+•	The input values<br>
+•	Any errors if it failed<br>
+•	The outcome (accept or fraud/high risk)<br>
 
 Screenshot of test result
 ![alt text](image-5.png)
@@ -200,12 +201,11 @@ Screenshot of test result
 Step 5 Confirm It Worked  
 
 •	✅ Fraud Detector: Ensure that our model is trained and active, with an event type named transaction_event and the 2 variables:
-      o	ip_address  
-      o	email_address  
+      ip_address and email_address<br>
 
-•	✅ DynamoDB: Go to DynamoDB Console, open our table (e.g., fraud-transactions), check if a record was added.  
+•	✅ DynamoDB: Go to DynamoDB Console, open our table (e.g., fraud-transactions), check if a record was added.<br>
 
-•	✅ SNS: If the prediction was fraud, check our email inbox (that we set in var.alert_email) for the alert.  
+•	✅ SNS: If the prediction was fraud, check our email inbox (that we set in var.alert_email) for the alert.<br>
 
 
 Step 5.1 Confirm It Worked: Fraud Detector active
