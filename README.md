@@ -228,7 +228,7 @@ Step 5.2 Confirm It Worked: dynomoDB
 ![alt text](image-10.png)
 ![alt text](image-11.png)
 We also can download the dynamodb table in csv format as seen by the screenshot below
-![alt text](image-12.png)
+![alt text](image-25.png)
 
 Step 5.3 Confirm It Worked: SNS
 In AWS, we seen our email status is confirmed
@@ -239,7 +239,7 @@ The value shown for SNS_TOPIC_ARN exactly matches the ARN of our SNS topic.
 
 Below screenshot showing email received fraud_alert.
 
-![alt text](image-16.png)
+![alt text](image-24.png)
 
 
 Step 5.4 Confirmed it work cloudwatch
@@ -367,8 +367,13 @@ https://docs.aws.amazon.com/frauddetector/latest/ug/how-frauddetector-works.html
 
 [13] AWS Machine Learning (SageMaker) Specialization https://www.youtube.com/watch?v=3XTmwgjO5DM&list=PLMWIyphKbqfwW4RmL1G29Q_7LOnUV-cE6  
 
-[14] AWS Summit Singapore Livestream 2025
+[14] AWS Summit Singapore Livestream 2025, https://aws.amazon.com/events/summits/singapore/?aws-summit-asean.sort-by=item.additionalFields.ranking&aws-summit-asean.sort-order=asc&awsf.aws-summit-asean-track=*all&awsf.aws-summit-asean-level=*all&awsf.aws-summit-asean-session-type=*all&awsf.aws-summit-asean-topic=*all&awsf.aws-summit-asean-industry=*all&awsf.aws-summit-asean-audience=*all
+
 
 [15] CertNexus Certified Artificial Intelligence Practitioner Professional Certificate, Coursera  
+
+[16] Intro to Machine Learning featuring Generative AI, by freecodecamp.org
+
+
 
 
